@@ -6,7 +6,7 @@ import {
 import { EditableComponent } from './editable.component';
 
 @Component({
-  moduleId: 'ng2-editable',
+  moduleId: 'ng2-editable-custom',
   selector: 'ng2-selectable',
   template: `
     {{isActive ? '' : currentLabel}}

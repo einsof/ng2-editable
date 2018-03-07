@@ -1,14 +1,14 @@
-# ng2-editable
-In-place editing for Angular2
+# ng2-editable-custom
+In-place editing for Angular2 (fork of ng2-editable)
 
 ## Installation
-ng2-editable is available via npm:
+ng2-editable-custom is available via npm:
 
-`npm install --save ng2-editable`
+`npm install --save ng2-editable-custom`
 
 Use it by improting `EditableModule` into your module:
 ```typescript
-import { EditableModule } from 'ng2-editable';
+import { EditableModule } from 'ng2-editable-custom';
 
 @NgModule({
   imports: [
@@ -25,14 +25,14 @@ Include the components you need into your HTML file, specifying the property you
 ```typescript
 <ng2-text-editable [(text)]="myText"</ng2-text-editable>
 ```
-ng2-editable uses two-way binding, so no event handlers are required.
+ng2-editable-custom uses two-way binding, so no event handlers are required.
 
 The component will render the property you provide. On click, it will replace it with an `<input>` or `<select>` element. It will return to default state if you click anywhere else.
 
 ## Documentation
 ### Common features
 #### Toggle event
-All ng2-editable components expose a `(toggled)` Output which will fire whenever the component changes state. It emits an object with the following interface:
+All ng2-editable-custom components expose a `(toggled)` Output which will fire whenever the component changes state. It emits an object with the following interface:
 ```typescript
 interface ToggleEvent {
   isActive: boolean;
@@ -43,7 +43,7 @@ interface ToggleEvent {
 ### Text editable
 A simple component for editing strings.
 
-selector: **ng2-text-editable**
+selector: **ng2-input-editable** or **ng2-textarea-editable**
 
 property name: **text**
 
@@ -94,4 +94,5 @@ property name: **value**
 *showFalse*: if true, does not display anything if value is true; defaults to false.
 
 ## Contribute
-Contributions are welcome on [Github](https://github.com/poznyakovskiy/ng2-editable).
+Original contributions are welcome on [Github](https://github.com/poznyakovskiy/ng2-editable).
+Fork on [Github](https://github.com/einsof/ng2-editable).

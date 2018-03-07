@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, Output, EventEmitter, ChangeDetectionStra
 import { EditableComponent } from './editable.component';
 
 @Component({
-  moduleId: 'ng2-editable',
+  moduleId: 'ng2-editable-custom',
   selector: 'ng2-toggleable',
   template: `
     {{isActive ? '' : (value ? '\u2713' : (showFalse ? '\u2717' : ''))}}

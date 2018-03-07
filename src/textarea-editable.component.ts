@@ -6,15 +6,15 @@ import {
 import { EditableComponent } from './editable.component';
 
 @Component({
-  moduleId: 'ng2-editable',
-  selector: 'ng2-text-editable',
+  moduleId: 'ng2-editable-custom',
+  selector: 'ng2-textarea-editable',
   template: `
     {{isActive ? '' : text}}
     <textarea *ngIf="isActive" [(ngModel)]="text"></textarea>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TextEditableComponent extends EditableComponent {
+export class TextareaEditableComponent extends EditableComponent {
 
   @Input() public text = '';
   @Output() public textChange = new EventEmitter<string>();

@@ -1,6 +1,6 @@
 {
   "name": "ng2-editable-custom",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "In-place editing for Angular2 (fork of ng2-editable)",
   "main": "dist/index.js",
   "scripts": {
