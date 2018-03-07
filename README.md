@@ -23,7 +23,11 @@ To use components in other modules, also add `EditableModule` to `exports`.
 ## Usage
 Include the components you need into your HTML file, specifying the property you want to bind to.
 ```typescript
-<ng2-text-editable [(text)]="myText"</ng2-text-editable>
+<ng2-input-editable [(text)]="myText"</ng2-input-editable>
+```
+or
+```typescript
+<ng2-textarea-editable [(text)]="myText"</ng2-textarea-editable>
 ```
 ng2-editable-custom uses two-way binding, so no event handlers are required.
 
