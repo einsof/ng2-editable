@@ -1,7 +1,7 @@
 {
-  "name": "ng2-editable",
+  "name": "ng2-editable-custom",
   "version": "1.0.2",
-  "description": "In-place editing for Angular2",
+  "description": "In-place editing for Angular2 (fork of ng2-editable)",
   "main": "dist/index.js",
   "scripts": {
     "prepublish": "ngc"
@@ -13,21 +13,21 @@
     "angular2"
   ],
   "author": {
-    "name": "Anton Poznyakovskiy",
-    "email": "anton.poznyakovskiy@data2impact.com"
+    "name": "Mike Silanin",
+    "email": "mike.silanin@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
-    "rxjs": "~5.3.0"
+    "rxjs": "~5.5.6"
   },
   "devDependencies": {
-    "@angular/common": "^4.0.2",
-    "@angular/compiler": "^4.0.2",
-    "@angular/compiler-cli": "^4.0.2",
-    "@angular/core": "^4.0.2",
-    "@angular/forms": "^4.0.2",
+    "@angular/common": "^5.2.4",
+    "@angular/compiler": "^5.2.4",
+    "@angular/compiler-cli": "^5.2.4",
+    "@angular/core": "^5.2.4",
+    "@angular/forms": "^5.2.4",
     "copyfiles": "^1.2.0",
-    "typescript": "~2.2.2"
+    "typescript": "~2.5.3"
   },
   "typings": "./dist/index.d.ts"
 }
