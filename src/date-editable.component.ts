@@ -19,7 +19,7 @@ export class DateEditableComponent extends EditableComponent {
   @Input() public date = new Date();
   @Output() public dateChange = new EventEmitter<Date>();
 
-  private _originalDate = new Date();
+  private originalDate = new Date();
 
   constructor (
     cdRef: ChangeDetectorRef,
@@ -28,23 +28,23 @@ export class DateEditableComponent extends EditableComponent {
     super(cdRef, elem);
   }
 
-  protected _createToggleEvent = () => ({
-    isActive: this.isActive,
-    isChanged: ((this.date === undefined || this._originalDate === undefined) && this.date !== this._originalDate) ||
-      this.date.getFullYear() !== this._originalDate.getFullYear() ||
-      this.date.getMonth() !== this._originalDate.getMonth() ||
-      this.date.getDate() !== this._originalDate.getDate()
-  })
+  protected createToggleEvent = () => ({
+    isActive: this.active,
+    isChanged: ((this.date === undefined || this.originalDate === undefined) && this.date !== this.originalDate) ||
+      this.date.getFullYear() !== this.originalDate.getFullYear() ||
+      this.date.getMonth() !== this.originalDate.getMonth() ||
+      this.date.getDate() !== this.originalDate.getDate()
+  });
 
-  protected _handleStateChange = () => {
-    if (this.isActive) {
-      this._originalDate = this.date;
+  protected handleStateChange = () => {
+    if (this.active) {
+      this.originalDate = this.date;
     } else {
-        if (this.date !== this._originalDate) {
-            this.dateChange.emit(this.date);
-        }
+      if (this.date !== this.originalDate) {
+        this.dateChange.emit(this.date);
+      }
     }
-  }
+  };
 
   public parseDate = (input: string) => {
     const date = new Date(input);

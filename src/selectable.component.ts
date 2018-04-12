@@ -35,7 +35,7 @@ export class SelectableComponent<T> extends EditableComponent {
     return this.getLabel(v);
   }
 
-  private _originalValue: any;
+  private originalValue: any;
 
   constructor (
     cdRef: ChangeDetectorRef,
@@ -48,26 +48,26 @@ export class SelectableComponent<T> extends EditableComponent {
     if (this.valueAccessor !== undefined) return this.valueAccessor(e);
     if (this.valueProperty !== undefined) return e[this.valueProperty];
     return e;
-  }
+  };
 
   public getLabel = (e: T) => {
     if (this.labelAccessor !== undefined) return this.labelAccessor(e);
     if (this.labelProperty !== undefined) return e[this.labelProperty];
     return e;
-  }
+  };
 
-  protected _createToggleEvent = () => ({
-    isActive: this.isActive,
-    isChanged: this.value !== this._originalValue
-  })
+  protected createToggleEvent = () => ({
+    isActive: this.active,
+    isChanged: this.value !== this.originalValue
+  });
 
-  protected _handleStateChange = () => {
-    if (this.isActive) {
-      this._originalValue = this.value;
+  protected handleStateChange = () => {
+    if (this.active) {
+      this.originalValue = this.value;
     } else {
-        if (this.value !== this._originalValue) {
-            this.valueChange.emit(this.value);
-        }
+      if (this.value !== this.originalValue) {
+        this.valueChange.emit(this.value);
+      }
     }
   }
 

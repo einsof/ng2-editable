@@ -19,7 +19,7 @@ export class ToggleableComponent extends EditableComponent {
 
   @Input() public showFalse = true;
 
-  private _originalValue: boolean | undefined = undefined;
+  private originalValue: boolean | undefined = undefined;
 
   constructor (
     cdRef: ChangeDetectorRef,
@@ -28,16 +28,16 @@ export class ToggleableComponent extends EditableComponent {
     super(cdRef, elem);
   }
 
-  protected _createToggleEvent = () => ({
-    isActive: this.isActive,
-    isChanged: this.value !== this._originalValue
-  })
+  protected createToggleEvent = () => ({
+    isActive: this.active,
+    isChanged: this.value !== this.originalValue
+  });
 
-  protected _handleStateChange = () => {
-    if (this.isActive) {
-      this._originalValue = this.value;
+  protected handleStateChange = () => {
+    if (this.active) {
+      this.originalValue = this.value;
     } else {
-        if (this.value !== this._originalValue) {
+        if (this.value !== this.originalValue) {
             this.valueChange.emit(this.value);
         }
     }

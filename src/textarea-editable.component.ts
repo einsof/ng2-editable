@@ -19,7 +19,7 @@ export class TextareaEditableComponent extends EditableComponent {
   @Input() public text = '';
   @Output() public textChange = new EventEmitter<string>();
 
-  private _originalText = '';
+  private originalText = '';
 
   constructor (
     cdRef: ChangeDetectorRef,
@@ -28,19 +28,18 @@ export class TextareaEditableComponent extends EditableComponent {
     super(cdRef, elem);
   }
 
-  protected _createToggleEvent = () => ({
-    isActive: this.isActive,
-    isChanged: this.text !== this._originalText
-  })
+  protected createToggleEvent = () => ({
+    isActive: this.active,
+    isChanged: this.text !== this.originalText
+  });
 
-  protected _handleStateChange = () => {
-    if (this.isActive) {
-      this._originalText = this.text;
+  protected handleStateChange = () => {
+    if (this.active) {
+      this.originalText = this.text;
     } else {
-        if (this.text !== this._originalText) {
-            this.textChange.emit(this.text);
-        }
+      if (this.text !== this.originalText) {
+        this.textChange.emit(this.text);
+      }
     }
   }
-
 }
