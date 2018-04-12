@@ -65,7 +65,9 @@ export class SelectableComponent<T> extends EditableComponent {
     if (this.isActive) {
       this._originalValue = this.value;
     } else {
-      this.valueChange.emit(this.value);
+        if (this.value !== this._originalValue) {
+            this.valueChange.emit(this.value);
+        }
     }
   }
 

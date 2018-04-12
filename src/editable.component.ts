@@ -11,13 +11,13 @@ export abstract class EditableComponent {
     return this._isActive;
   }
 
-  public set isActive(v: boolean) {
-    this._isActive = v;
-    this._cdRef.markForCheck();
-
-    this._handleStateChange();
-
-    this.toggled.emit(this._createToggleEvent());
+  public set isActive(value: boolean) {
+    if (value !== this._isActive) {
+        this._isActive = value;
+        this._cdRef.markForCheck();
+        this._handleStateChange();
+        this.toggled.emit(this._createToggleEvent());
+    }
   }
 
   @HostBinding('class.edited') private _isActive = false;
@@ -32,9 +32,7 @@ export abstract class EditableComponent {
   ) { }
 
   @HostListener('click') public onClick() {
-    if (!this.isActive) {
       this.isActive = true;
-    }
   }
 
   @HostListener('document:click', ['$event']) public onClickAnywhere (event: Event) {

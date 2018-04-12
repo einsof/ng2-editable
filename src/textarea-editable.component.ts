@@ -37,7 +37,9 @@ export class TextareaEditableComponent extends EditableComponent {
     if (this.isActive) {
       this._originalText = this.text;
     } else {
-      this.textChange.emit(this.text);
+        if (this.text !== this._originalText) {
+            this.textChange.emit(this.text);
+        }
     }
   }
 

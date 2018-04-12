@@ -40,7 +40,9 @@ export class DateEditableComponent extends EditableComponent {
     if (this.isActive) {
       this._originalDate = this.date;
     } else {
-      this.dateChange.emit(this.date);
+        if (this.date !== this._originalDate) {
+            this.dateChange.emit(this.date);
+        }
     }
   }
 
