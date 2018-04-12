@@ -51,6 +51,11 @@ export class DateEditableComponent extends EditableComponent {
     this.active = false;
   };
 
+  protected saveChanges = () => {
+    this.originalDate = this.date;
+    this.active = false;
+  };
+
   public parseDate = (input: string) => {
     const date = new Date(input);
     return isNaN(date.getTime())

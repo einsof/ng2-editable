@@ -76,4 +76,8 @@ export class SelectableComponent<T> extends EditableComponent {
     this.active = false;
   };
 
+  protected saveChanges = () => {
+    this.originalValue = this.value;
+    this.active = false;
+  };
 }

@@ -48,4 +48,9 @@ export class InputEditableComponent extends EditableComponent {
     this.text = this.originalText;
     this.active = false;
   };
+
+  protected saveChanges = () => {
+    this.originalText = this.text;
+    this.active = false;
+  };
 }

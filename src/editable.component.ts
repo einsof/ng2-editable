@@ -16,6 +16,7 @@ export abstract class EditableComponent {
   protected abstract createToggleEvent: () => ToggleEvent;
   protected abstract handleStateChange: () => void;
   protected abstract resetToDefaultState: () => void;
+  protected abstract saveChanges: () => void;
 
   constructor (
     private cdRef: ChangeDetectorRef,
@@ -59,6 +60,10 @@ export abstract class EditableComponent {
 
   public reset() {
     this.resetToDefaultState();
+  }
+
+  public save() {
+    this.saveChanges();
   }
 
   private excludeCheck() {
