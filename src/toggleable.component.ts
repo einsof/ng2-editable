@@ -51,5 +51,6 @@ export class ToggleableComponent extends EditableComponent {
   protected saveChanges = () => {
     this.originalValue = this.value;
     this.active = false;
+    this.valueChange.emit(this.value);
   };
 }

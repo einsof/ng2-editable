@@ -52,5 +52,6 @@ export class TextareaEditableComponent extends EditableComponent {
   protected saveChanges = () => {
     this.originalText = this.text;
     this.active = false;
+    this.textChange.emit(this.text);
   };
 }

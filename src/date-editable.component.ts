@@ -54,6 +54,7 @@ export class DateEditableComponent extends EditableComponent {
   protected saveChanges = () => {
     this.originalDate = this.date;
     this.active = false;
+    this.dateChange.emit(this.date);
   };
 
   public parseDate = (input: string) => {

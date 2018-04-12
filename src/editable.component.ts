@@ -7,6 +7,7 @@ export abstract class EditableComponent {
 
   @Input() exclude: string = '';
   @Input() needExclude: boolean = false;
+  @Input() needDetectOutside: boolean = true;
 
   @HostBinding('class.edited')
   private isActive = false;
@@ -33,14 +34,16 @@ export abstract class EditableComponent {
 
   @HostListener('document:click', ['$event'])
   public onClickAnywhere (event: Event) {
-    if (this.needExclude) {
-      this.excludeCheck();
-    }
+    if(this.needDetectOutside){
+      if (this.needExclude) {
+        this.excludeCheck();
+      }
 
-    if (this.active && !this.elem.nativeElement.contains(event.target) && !this.shouldExclude(event.target)) {
-      event.preventDefault();
-      this.needEmit = true;
-      this.active = false;
+      if (this.active && !this.elem.nativeElement.contains(event.target) && !this.shouldExclude(event.target)) {
+        event.preventDefault();
+        this.needEmit = true;
+        this.active = false;
+      }
     }
   }
 
