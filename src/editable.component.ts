@@ -1,4 +1,4 @@
-import { Output, EventEmitter, ElementRef, ChangeDetectorRef, HostListener, HostBinding } from '@angular/core';
+import { Output, Input, EventEmitter, ElementRef, ChangeDetectorRef, HostListener, HostBinding } from '@angular/core';
 
 import { ToggleEvent } from './models';
 
@@ -6,6 +6,7 @@ export abstract class EditableComponent {
 
   @Output() public toggled = new EventEmitter<ToggleEvent>();
 
+  @Input()
   public get isActive() {
     return this._isActive;
   }
