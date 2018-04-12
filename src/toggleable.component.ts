@@ -37,10 +37,15 @@ export class ToggleableComponent extends EditableComponent {
     if (this.active) {
       this.originalValue = this.value;
     } else {
-        if (this.value !== this.originalValue) {
-            this.valueChange.emit(this.value);
-        }
+      if (this.value !== this.originalValue) {
+        this.valueChange.emit(this.value);
+      }
     }
-  }
+  };
+
+  protected resetToDefaultState = () => {
+    this.value = this.originalValue === undefined ? false : this.originalValue;
+    this.active = false;
+  };
 
 }

@@ -10,13 +10,14 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-input-editable',
   template: `
     {{isActive ? '' : text}}
-    <input type="text" *ngIf="isActive" [(ngModel)]="text">
+    <input type="text" *ngIf="isActive" [(ngModel)]="text" placeholder="{{placeholder}}">
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputEditableComponent extends EditableComponent {
 
   @Input() public text = '';
+  @Input() public placeholder = '';
   @Output() public textChange = new EventEmitter<string>();
 
   private originalText = '';
@@ -41,5 +42,10 @@ export class InputEditableComponent extends EditableComponent {
         this.textChange.emit(this.text);
       }
     }
-  }
+  };
+
+  protected resetToDefaultState = () => {
+    this.text = this.originalText;
+    this.active = false;
+  };
 }

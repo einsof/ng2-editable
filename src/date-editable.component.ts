@@ -46,11 +46,16 @@ export class DateEditableComponent extends EditableComponent {
     }
   };
 
+  protected resetToDefaultState = () => {
+    this.date = this.originalDate;
+    this.active = false;
+  };
+
   public parseDate = (input: string) => {
     const date = new Date(input);
     return isNaN(date.getTime())
       ? undefined
       : date;
-  }
+  };
 
 }

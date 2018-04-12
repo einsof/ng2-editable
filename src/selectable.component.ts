@@ -69,6 +69,11 @@ export class SelectableComponent<T> extends EditableComponent {
         this.valueChange.emit(this.value);
       }
     }
-  }
+  };
+
+  protected resetToDefaultState = () => {
+    this.value = this.originalValue;
+    this.active = false;
+  };
 
 }
