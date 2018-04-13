@@ -12,7 +12,6 @@ export abstract class EditableComponent {
   @HostBinding('class.edited')
   private isActive = false;
   private nodesExcluded: Array<HTMLElement> = [];
-  private needEmit = false;
 
   protected abstract createToggleEvent: () => ToggleEvent;
   protected abstract handleStateChange: () => void;
@@ -27,7 +26,6 @@ export abstract class EditableComponent {
   @HostListener('click')
   public onClick() {
     if (!this.active) {
-      this.needEmit = true;
       this.active = true;
     }
   }
@@ -41,7 +39,6 @@ export abstract class EditableComponent {
 
       if (this.active && !this.elem.nativeElement.contains(event.target) && !this.shouldExclude(event.target)) {
         event.preventDefault();
-        this.needEmit = true;
         this.active = false;
       }
     }
@@ -57,7 +54,7 @@ export abstract class EditableComponent {
       this.isActive = value;
       this.cdRef.markForCheck();
       this.handleStateChange();
-      this.emitEvent();
+      this.toggled.emit(this.createToggleEvent());
     }
   }
 
@@ -90,12 +87,4 @@ export abstract class EditableComponent {
     }
     return false;
   }
-
-  private emitEvent() {
-    if(this.needEmit) {
-      this.toggled.emit(this.createToggleEvent());
-    }
-    this.needEmit = false;
-  }
-
 }
