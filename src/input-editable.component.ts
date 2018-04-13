@@ -10,7 +10,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-input-editable',
   template: `
     {{isActive ? '' : text}}
-    <input type="text" *ngIf="isActive" [(ngModel)]="text" placeholder="{{placeholder}}">
+    <input type="text" *ngIf="isActive" [(ngModel)]="text" placeholder="{{placeholder}}" class="ng2-editable">
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

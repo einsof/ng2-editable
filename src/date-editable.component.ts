@@ -10,7 +10,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-date-editable',
   template: `
     {{isActive ? '' : (date | date:'mediumDate')}}
-    <input *ngIf="isActive" type="date" [value]="date | date:'yyyy-MM-dd'" (input)="date=parseDate($event.target.value)">
+    <input *ngIf="isActive" type="date" [value]="date | date:'yyyy-MM-dd'" (input)="date=parseDate($event.target.value)" class="ng2-editable">
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

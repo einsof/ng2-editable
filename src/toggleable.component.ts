@@ -7,8 +7,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-toggleable',
   template: `
     {{isActive ? '' : (value ? '\u2713' : (showFalse ? '\u2717' : ''))}}
-    <input *ngIf="isActive" type="checkbox" [(ngModel)]="value"
-      style="margin-left: auto; margin-right: auto;">
+    <input *ngIf="isActive" type="checkbox" [(ngModel)]="value" class="ng2-editable">
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

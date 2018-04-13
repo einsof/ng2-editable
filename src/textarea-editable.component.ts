@@ -10,7 +10,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-textarea-editable',
   template: `
     {{isActive ? '' : text}}
-    <textarea *ngIf="isActive" [(ngModel)]="text" placeholder="{{placeholder}}"></textarea>
+    <textarea *ngIf="isActive" [(ngModel)]="text" placeholder="{{placeholder}}" class="ng2-editable"></textarea>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

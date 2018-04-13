@@ -10,7 +10,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-selectable',
   template: `
     {{isActive ? '' : currentLabel}}
-    <select *ngIf="isActive" [(ngModel)]="value">
+    <select *ngIf="isActive" [(ngModel)]="value" class="ng2-editable">
       <option *ngFor="let option of options" [value]="getValue(option)">
         {{getLabel(option)}}
       </option>
