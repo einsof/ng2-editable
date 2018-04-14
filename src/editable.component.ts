@@ -1,6 +1,11 @@
 import { Output, Input, EventEmitter, ElementRef, ChangeDetectorRef, HostListener, HostBinding } from '@angular/core';
 import { ToggleEvent } from './models';
 
+export enum keycode {
+    escape = 27,
+    enter = 13
+};
+
 export abstract class EditableComponent {
 
   @Output() public toggled = new EventEmitter<ToggleEvent>();
@@ -40,6 +45,18 @@ export abstract class EditableComponent {
       if (this.active && !this.elem.nativeElement.contains(event.target) && !this.shouldExclude(event.target)) {
         event.preventDefault();
         this.active = false;
+      }
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  public onKeydownHandler(event: KeyboardEvent) {
+    if (this.isActive) {
+      if (event.keyCode === keycode.escape) {
+        this.resetToDefaultState();
+      }
+      if (event.keyCode === keycode.enter) {
+        this.saveChanges();
       }
     }
   }
