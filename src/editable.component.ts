@@ -2,15 +2,16 @@ import {
     Output, Input, EventEmitter, ElementRef, ChangeDetectorRef, HostListener, HostBinding,
     OnInit
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms/src/directives/validators';
+import { AbstractControlOptions } from '@angular/forms/src/model';
+
 import { ToggleEvent } from './models';
-import { FormControl } from "@angular/forms";
-import { ValidatorFn } from "@angular/forms/src/directives/validators";
-import { AbstractControlOptions } from "@angular/forms/src/model";
 
 export enum keycode {
     escape = 27,
     enter = 13
-};
+}
 
 export abstract class EditableComponent implements OnInit {
 
@@ -23,8 +24,8 @@ export abstract class EditableComponent implements OnInit {
   @Input() public validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null;
 
   @HostBinding('class.edited')
-  private isActive = false;
-  private nodesExcluded: Array<HTMLElement> = [];
+  protected isActive = false;
+  protected nodesExcluded: Array<HTMLElement> = [];
 
   protected control = new FormControl('', this.validatorOrOpts);
 
@@ -40,7 +41,6 @@ export abstract class EditableComponent implements OnInit {
 
   ngOnInit() {
     this.control = new FormControl('', this.validatorOrOpts);
-    this.control.setValue(this.value);
   }
 
   @HostListener('click')
@@ -52,7 +52,7 @@ export abstract class EditableComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   public onClickAnywhere (event: Event) {
-    if(this.needDetectOutside){
+    if (this.needDetectOutside) {
       if (this.needExclude) {
         this.excludeCheck();
       }

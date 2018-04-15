@@ -10,13 +10,12 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-textarea-editable',
   template: `
     {{isActive ? '' : value}}
-    <textarea *ngIf="isActive" placeholder="{{placeholder}}" class="ng2-editable" [formControl]="control"></textarea>
+    <textarea *ngIf="isActive" value="{{value}}" placeholder="{{placeholder}}" class="ng2-editable" [formControl]="control"></textarea>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TextareaEditableComponent extends EditableComponent {
 
-  @Input() public text = '';
   @Input() public placeholder = '';
   @Output() public textChange = new EventEmitter<string>();
 
@@ -29,14 +28,10 @@ export class TextareaEditableComponent extends EditableComponent {
     super(cdRef, elem);
   }
 
-  ngOnInit() {
-    // this.control = new FormControl('', this.validatorOrOpts);
-  }
-
   protected createToggleEvent = () => ({
     isActive: this.active,
     isChanged: this.value !== this.originalText
-  });
+  })
 
   protected handleStateChange = () => {
     if (this.active) {
@@ -46,16 +41,16 @@ export class TextareaEditableComponent extends EditableComponent {
         this.textChange.emit(this.value);
       }
     }
-  };
+  }
 
   protected resetToDefaultState = () => {
     this.value = this.originalText;
     this.active = false;
-  };
+  }
 
   protected saveChanges = () => {
     this.originalText = this.value;
     this.active = false;
     this.textChange.emit(this.value);
-  };
+  }
 }

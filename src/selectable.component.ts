@@ -10,7 +10,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-selectable',
   template: `
     {{isActive ? '' : currentLabel}}
-    <select *ngIf="isActive" class="ng2-editable" [formControl]="control">
+    <select *ngIf="isActive" value="{{value}}" class="ng2-editable" [formControl]="control">
       <option *ngFor="let option of options" [value]="getValue(option)">
         {{getLabel(option)}}
       </option>
@@ -37,21 +37,17 @@ export class SelectableComponent<T> extends EditableComponent {
     super(cdRef, elem);
   }
 
-  ngOnInit() {
-    // this.control = new FormControl('', this.validatorOrOpts);
-  }
-
   public getValue = (e: T) => {
     if (this.valueAccessor !== undefined) return this.valueAccessor(e);
     if (this.valueProperty !== undefined) return e[this.valueProperty];
     return e;
-  };
+  }
 
   public getLabel = (e: T) => {
     if (this.labelAccessor !== undefined) return this.labelAccessor(e);
     if (this.labelProperty !== undefined) return e[this.labelProperty];
     return e;
-  };
+  }
 
   public get currentLabel() {
     const v = this.options.find(e => this.getValue(e) === this.value);
@@ -62,7 +58,7 @@ export class SelectableComponent<T> extends EditableComponent {
   protected createToggleEvent = () => ({
     isActive: this.active,
     isChanged: this.value !== this.originalValue
-  });
+  })
 
   protected handleStateChange = () => {
     if (this.active) {
@@ -72,16 +68,16 @@ export class SelectableComponent<T> extends EditableComponent {
         this.valueChange.emit(this.value);
       }
     }
-  };
+  }
 
   protected resetToDefaultState = () => {
     this.value = this.originalValue;
     this.active = false;
-  };
+  }
 
   protected saveChanges = () => {
     this.originalValue = this.value;
     this.active = false;
     this.valueChange.emit(this.value);
-  };
+  }
 }
