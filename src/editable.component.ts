@@ -1,22 +1,32 @@
-import { Output, Input, EventEmitter, ElementRef, ChangeDetectorRef, HostListener, HostBinding } from '@angular/core';
+import {
+    Output, Input, EventEmitter, ElementRef, ChangeDetectorRef, HostListener, HostBinding,
+    OnInit
+} from '@angular/core';
 import { ToggleEvent } from './models';
+import { FormControl } from "@angular/forms";
+import { ValidatorFn } from "@angular/forms/src/directives/validators";
+import { AbstractControlOptions } from "@angular/forms/src/model";
 
 export enum keycode {
     escape = 27,
     enter = 13
 };
 
-export abstract class EditableComponent {
+export abstract class EditableComponent implements OnInit {
 
   @Output() public toggled = new EventEmitter<ToggleEvent>();
 
-  @Input() exclude: string = '';
-  @Input() needExclude: boolean = false;
-  @Input() needDetectOutside: boolean = true;
+  @Input() public value: any;
+  @Input() public exclude: string = '';
+  @Input() public needExclude: boolean = false;
+  @Input() public needDetectOutside: boolean = true;
+  @Input() public validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null;
 
   @HostBinding('class.edited')
   private isActive = false;
   private nodesExcluded: Array<HTMLElement> = [];
+
+  protected control = new FormControl('', this.validatorOrOpts);
 
   protected abstract createToggleEvent: () => ToggleEvent;
   protected abstract handleStateChange: () => void;
@@ -27,6 +37,11 @@ export abstract class EditableComponent {
     private cdRef: ChangeDetectorRef,
     private elem: ElementRef
   ) { }
+
+  ngOnInit() {
+    this.control = new FormControl('', this.validatorOrOpts);
+    this.control.setValue(this.value);
+  }
 
   @HostListener('click')
   public onClick() {

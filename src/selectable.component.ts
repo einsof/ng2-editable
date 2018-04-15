@@ -1,10 +1,7 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy,
+  Component, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { AbstractControlOptions } from '@angular/forms/src/model';
-import { ValidatorFn } from '@angular/forms/src/directives/validators';
 
 import { EditableComponent } from './editable.component';
 
@@ -13,7 +10,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-selectable',
   template: `
     {{isActive ? '' : currentLabel}}
-    <select *ngIf="isActive" [(ngModel)]="value" class="ng2-editable">
+    <select *ngIf="isActive" class="ng2-editable" [formControl]="control">
       <option *ngFor="let option of options" [value]="getValue(option)">
         {{getLabel(option)}}
       </option>
@@ -21,9 +18,8 @@ import { EditableComponent } from './editable.component';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectableComponent<T> extends EditableComponent implements OnInit {
+export class SelectableComponent<T> extends EditableComponent {
 
-  @Input() public value: any;
   @Output() public valueChange = new EventEmitter<any>();
 
   @Input() public options: T[] = [];
@@ -31,11 +27,8 @@ export class SelectableComponent<T> extends EditableComponent implements OnInit 
   @Input() public labelProperty = 'label';
   @Input() public valueAccessor: ((e: T) => any) | undefined;
   @Input() public labelAccessor: ((e: T) => string) | undefined;
-  @Input() public formControlName = '';
-  @Input() public validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null;
 
   private originalValue: any;
-  private control: FormControl;
 
   constructor (
     cdRef: ChangeDetectorRef,
@@ -45,7 +38,7 @@ export class SelectableComponent<T> extends EditableComponent implements OnInit 
   }
 
   ngOnInit() {
-    this.control = new FormControl('', this.validatorOrOpts);
+    // this.control = new FormControl('', this.validatorOrOpts);
   }
 
   public getValue = (e: T) => {

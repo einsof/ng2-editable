@@ -7,13 +7,12 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-toggleable',
   template: `
     {{isActive ? '' : (value ? '\u2713' : (showFalse ? '\u2717' : ''))}}
-    <input *ngIf="isActive" type="checkbox" [(ngModel)]="value" class="ng2-editable">
+    <input *ngIf="isActive" type="checkbox" class="ng2-editable">
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleableComponent extends EditableComponent {
 
-  @Input() public value: boolean;
   @Output() public valueChange = new EventEmitter<boolean>();
 
   @Input() public showFalse = true;

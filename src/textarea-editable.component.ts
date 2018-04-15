@@ -1,10 +1,7 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy,
+  Component, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { AbstractControlOptions } from '@angular/forms/src/model';
-import { ValidatorFn } from '@angular/forms/src/directives/validators';
 
 import { EditableComponent } from './editable.component';
 
@@ -12,21 +9,18 @@ import { EditableComponent } from './editable.component';
   moduleId: 'ng2-editable-custom',
   selector: 'ng2-textarea-editable',
   template: `
-    {{isActive ? '' : text}}
-    <textarea *ngIf="isActive" [(ngModel)]="text" placeholder="{{placeholder}}" class="ng2-editable" [formControl]="{formControlName}"></textarea>
+    {{isActive ? '' : value}}
+    <textarea *ngIf="isActive" placeholder="{{placeholder}}" class="ng2-editable" [formControl]="control"></textarea>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TextareaEditableComponent extends EditableComponent implements OnInit {
+export class TextareaEditableComponent extends EditableComponent {
 
   @Input() public text = '';
   @Input() public placeholder = '';
-  @Input() public formControlName = '';
-  @Input() public validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null;
   @Output() public textChange = new EventEmitter<string>();
 
-  private originalText = '';
-  private control: FormControl;
+  private originalText: string = '';
 
   constructor (
     cdRef: ChangeDetectorRef,
@@ -36,32 +30,32 @@ export class TextareaEditableComponent extends EditableComponent implements OnIn
   }
 
   ngOnInit() {
-    this.control = new FormControl('', this.validatorOrOpts);
+    // this.control = new FormControl('', this.validatorOrOpts);
   }
 
   protected createToggleEvent = () => ({
     isActive: this.active,
-    isChanged: this.text !== this.originalText
+    isChanged: this.value !== this.originalText
   });
 
   protected handleStateChange = () => {
     if (this.active) {
-      this.originalText = this.text;
+      this.originalText = this.value;
     } else {
-      if (this.text !== this.originalText) {
-        this.textChange.emit(this.text);
+      if (this.value !== this.originalText) {
+        this.textChange.emit(this.value);
       }
     }
   };
 
   protected resetToDefaultState = () => {
-    this.text = this.originalText;
+    this.value = this.originalText;
     this.active = false;
   };
 
   protected saveChanges = () => {
-    this.originalText = this.text;
+    this.originalText = this.value;
     this.active = false;
-    this.textChange.emit(this.text);
+    this.textChange.emit(this.value);
   };
 }
