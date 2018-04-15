@@ -3,10 +3,10 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { AbstractControlOptions } from '@angular/forms/src/model';
+import { ValidatorFn } from '@angular/forms/src/directives/validators';
 
 import { EditableComponent } from './editable.component';
-import {AbstractControlOptions} from "@angular/forms/src/model";
-import {ValidatorFn} from "@angular/forms/src/directives/validators";
 
 @Component({
   moduleId: 'ng2-editable-custom',
