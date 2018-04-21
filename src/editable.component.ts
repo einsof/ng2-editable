@@ -25,6 +25,7 @@ export abstract class EditableComponent implements OnInit {
 
   @HostBinding('class.edited')
   protected isActive = false;
+  protected focused = false;
   protected nodesExcluded: Array<HTMLElement> = [];
 
   protected control = new FormControl('', this.validatorOrOpts);
@@ -66,7 +67,7 @@ export abstract class EditableComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   public onKeydownHandler(event: KeyboardEvent) {
-    if (this.isActive) {
+    if (this.isActive && this.focused) {
       if (event.keyCode === keycode.escape) {
         this.resetToDefaultState();
       }

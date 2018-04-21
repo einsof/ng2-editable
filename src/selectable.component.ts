@@ -10,7 +10,7 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-selectable',
   template: `
     {{isActive ? '' : currentLabel}}
-    <select *ngIf="isActive" value="{{value}}" class="ng2-editable" [formControl]="control">
+    <select *ngIf="isActive" value="{{value}}" class="ng2-editable" [formControl]="control" (focus)="onFocus($event)" (blur)="onBlur($event)">
       <option *ngFor="let option of options" [value]="getValue(option)">
         {{getLabel(option)}}
       </option>
@@ -37,6 +37,14 @@ export class SelectableComponent<T> extends EditableComponent {
     super(cdRef, elem);
   }
 
+  public onFocus (event: FocusEvent) {
+    this.focused = true;
+  }
+
+  public onBlur (event: FocusEvent) {
+    this.focused = false;
+  }
+
   public getValue = (e: T) => {
     if (this.valueAccessor !== undefined) return this.valueAccessor(e);
     if (this.valueProperty !== undefined) return e[this.valueProperty];
@@ -50,34 +58,35 @@ export class SelectableComponent<T> extends EditableComponent {
   }
 
   public get currentLabel() {
-    const v = this.options.find(e => this.getValue(e) === this.value);
+    const v = this.options.find(e => this.getValue(e) === this.control.value);
     if (v === undefined) return '';
     return this.getLabel(v);
   }
 
   protected createToggleEvent = () => ({
     isActive: this.active,
-    isChanged: this.value !== this.originalValue
+    isChanged: this.control.value !== this.originalValue
   })
 
   protected handleStateChange = () => {
     if (this.active) {
       this.originalValue = this.value;
+      this.control.setValue(this.value);
     } else {
-      if (this.value !== this.originalValue) {
-        this.valueChange.emit(this.value);
+      if (this.control.value !== this.originalValue) {
+        this.valueChange.emit(this.control.value);
       }
     }
   }
 
   protected resetToDefaultState = () => {
-    this.value = this.originalValue;
+    this.control.setValue(this.originalValue);
     this.active = false;
   }
 
   protected saveChanges = () => {
-    this.originalValue = this.value;
+    this.originalValue = this.control.value;
     this.active = false;
-    this.valueChange.emit(this.value);
+    this.valueChange.emit(this.control.value);
   }
 }

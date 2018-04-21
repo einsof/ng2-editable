@@ -10,7 +10,8 @@ import { EditableComponent } from './editable.component';
   selector: 'ng2-input-editable',
   template: `
     {{isActive ? '' : value}}
-    <input type="text" *ngIf="isActive" value="{{value}}" placeholder="{{placeholder}}" class="ng2-editable" [formControl]="control">
+    <input type="text" *ngIf="isActive" value="{{value}}" placeholder="{{placeholder}}" class="ng2-editable no-validate"
+           [formControl]="control" (focus)="onFocus($event)" (blur)="onBlur($event)">
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -28,29 +29,38 @@ export class InputEditableComponent extends EditableComponent {
     super(cdRef, elem);
   }
 
+  public onFocus (event: FocusEvent) {
+    this.focused = true;
+  }
+
+  public onBlur (event: FocusEvent) {
+    this.focused = false;
+  }
+
   protected createToggleEvent = () => ({
     isActive: this.active,
-    isChanged: this.value !== this.originalText
+    isChanged: this.control.value !== this.originalText
   })
 
   protected handleStateChange = () => {
     if (this.active) {
       this.originalText = this.value;
+      this.control.setValue(this.value);
     } else {
-      if (this.value !== this.originalText) {
-        this.textChange.emit(this.value);
+      if (this.control.value !== this.originalText) {
+        this.textChange.emit(this.control.value);
       }
     }
   }
 
   protected resetToDefaultState = () => {
-    this.value = this.originalText;
+    this.control.setValue(this.originalText);
     this.active = false;
   }
 
   protected saveChanges = () => {
-    this.originalText = this.value;
+    this.originalText = this.control.value;
     this.active = false;
-    this.textChange.emit(this.value);
+    this.textChange.emit(this.control.value);
   }
 }
